@@ -9,8 +9,6 @@ public class MortagageCalculator {
     // interest rate, and n is the number of payments
 
     public static void main(String[] args) {
-        final int MONTHS_IN_YEAR = 12;
-        final int PERCENT = 100;
         int principal;
         float annualInterestRate;
         int years;
@@ -40,11 +38,19 @@ public class MortagageCalculator {
             }
         }
 
-        float monthlyInterestRate = annualInterestRate / PERCENT / MONTHS_IN_YEAR;
-        int numberOfPayments = years * MONTHS_IN_YEAR;
-        double monthlyPayment = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments))
-                / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+        double monthlyPayment = calculateMoratage(principal, annualInterestRate, years);
         String formattedMonthlyPayment = NumberFormat.getCurrencyInstance().format(monthlyPayment);
         System.out.printf("Your monthly payment is: %s\n", formattedMonthlyPayment);
+    }
+
+    public static double calculateMoratage(double principal, float annualInterestRate, int years) {
+        final int MONTHS_IN_YEAR = 12;
+        final int PERCENT = 100;
+        double monthlyInterestRate = annualInterestRate / PERCENT / MONTHS_IN_YEAR;
+        int numberOfPayments = years * MONTHS_IN_YEAR;
+
+        double monthlyPayment = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments))
+                / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+        return monthlyPayment;
     }
 }

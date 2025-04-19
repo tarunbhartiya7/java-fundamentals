@@ -39,9 +39,15 @@ public class Main {
         // System.out.println(x != "quit");
         // System.out.println(x.equals("Hello"));
 
-        String[] fruits = { "Apple", "Banana", "Cherry" };
-        for (String fruit : fruits) {
-            System.out.println(fruit);
-        }
+        // String[] fruits = { "Apple", "Banana", "Cherry" };
+        // for (String fruit : fruits) {
+        // System.out.println(fruit);
+        // }
+        greetUser("Sam");
+        greetUser("John");
+    }
+
+    public static void greetUser(String name) {
+        System.out.println("Hello, " + name + "!");
     }
 }
