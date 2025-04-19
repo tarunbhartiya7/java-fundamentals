@@ -9,38 +9,26 @@ public class MortagageCalculator {
     // interest rate, and n is the number of payments
 
     public static void main(String[] args) {
-        int principal;
-        float annualInterestRate;
-        int years;
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            System.out.print("Enter the principal amount (between 1K and 1M): ");
-            principal = scanner.nextInt();
-            if (principal >= 1000 && principal <= 1_000_000) {
-                break;
-            }
-        }
-
-        while (true) {
-            System.out.print("Enter the annual interest rate (between 0 and 30): ");
-            annualInterestRate = scanner.nextFloat();
-            if (annualInterestRate >= 0 && annualInterestRate <= 30) {
-                break;
-            }
-        }
-
-        while (true) {
-            System.out.print("Enter the number of years (between 1 and 30): ");
-            years = scanner.nextInt();
-            if (years >= 1 && years <= 30) {
-                break;
-            }
-        }
+        int principal = (int) readInput("Enter the principal amount (between 1K and 1M): ", 1000, 1_000_000);
+        float annualInterestRate = readInput("Enter the annual interest rate (between 1 and 30): ", 1, 30);
+        int years = (int) readInput("Enter the number of years (between 1 and 30): ", 1, 30);
 
         double monthlyPayment = calculateMoratage(principal, annualInterestRate, years);
         String formattedMonthlyPayment = NumberFormat.getCurrencyInstance().format(monthlyPayment);
         System.out.printf("Your monthly payment is: %s\n", formattedMonthlyPayment);
+    }
+
+    public static float readInput(String prompt, int min, int max) {
+        Scanner scanner = new Scanner(System.in);
+        float value;
+        while (true) {
+            System.out.print(prompt);
+            value = scanner.nextFloat();
+            if (value >= min && value <= max) {
+                break;
+            }
+        }
+        return value;
     }
 
     public static double calculateMoratage(double principal, float annualInterestRate, int years) {
